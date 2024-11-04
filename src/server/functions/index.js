@@ -36,28 +36,35 @@ export const signin = async (email, password) => {
 };
 
 export const addProducts = async (formData) => {
-    let response = await fetch('http://localhost:5000/add-product', {
-        method: 'POST',
-        body: formData,
-    });
-    response = await response.json()
-    console.warn(response)
-    return response;
+    try {
+        let response = await fetch('http://localhost:5000/products/add-product', {
+            method: 'POST',
+            body: formData,
+        });
+        response = await response.json()
+        console.warn(response)
+        return response;
+    } catch (error) {
+        console.error('Error fetching products:', error); // Log the error to the console
+        throw error; // Re-throw the error if you want to handle it in a calling function
+    }
 };
+
+
 export const allProducts = async () => {
     try {
         let response = await fetch('http://localhost:5000/products');
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);  // Handle non-200 responses
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.warn(data);
-        return data;
+        return data.products;
     } catch (error) {
         console.error('Error fetching products:', error);
-        throw error;  // Rethrow the error to be handled in the calling function
+        throw error;
     }
 };
+
 
 export const deleteProduct = async (productId) => {
     try {

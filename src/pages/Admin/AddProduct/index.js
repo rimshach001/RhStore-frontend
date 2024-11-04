@@ -38,7 +38,7 @@ function AdminProduct() {
             const response = await addProducts(formData);
 
             if (response) {
-                console.log('Product added successfully!');
+                console.log('Product added successfully!', response);
             } else {
                 console.log('Failed to add product.');
             }

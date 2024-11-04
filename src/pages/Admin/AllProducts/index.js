@@ -21,12 +21,12 @@ const AllProducts = () => {
             try {
                 const data = await allProducts();
                 console.log(data, "response");
-                setProducts(data.products || []);
+                setProducts(data || []);
+                console.log(products, "products res")
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
         };
-
         fetchProducts();
     }, []);
 
